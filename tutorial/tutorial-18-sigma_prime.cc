@@ -78,13 +78,26 @@ void sigma_prime(const SigmaPrimeInput *in, SigmaPrimeOutput *out)
 		{
 			out->sum += i;
 			out->count++;
-			// Store first few primes for display (avoid memory issues for large n)
-			if (out->primes.size() < 100 || i > in->n - 100)
+			// Store first 50 and last 50 primes for display
+			if (out->count <= 50)
+			{
 				out->primes.push_back(i);
-			else if (out->primes.size() == 100)
+			}
+			else if (out->count == 51)
 			{
 				out->primes.push_back(-1);  // Marker for "..."
 			}
+			// We'll add the last 50 primes in a second pass if needed
+		}
+	}
+	
+	// If we have more than 100 primes, store the last 50
+	if (out->count > 100)
+	{
+		for (long long i = in->n; i >= 2 && out->primes.size() < 101; i--)
+		{
+			if (is_prime(i))
+				out->primes.push_back(i);
 		}
 	}
 }
