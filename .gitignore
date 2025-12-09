@@ -46,3 +46,31 @@ workflow-config.cmake
 .xmake
 build.xmake
 _include
+
+# cmake build directories
+build.cmake/
+_lib/
+
+# tutorial executables
+tutorial/helloworld
+tutorial/wget
+tutorial/http_echo_server
+tutorial/http_proxy
+tutorial/parallel_wget
+tutorial/sort_task
+tutorial/matrix_multiply
+tutorial/http_file_server
+tutorial/graph_task
+tutorial/name_service
+tutorial/dns_cli
+tutorial/sigma_prime
+tutorial/redis_cli
+tutorial/wget_to_redis
+tutorial/mysql_cli
+tutorial/consul_cli
+tutorial/tutorial-10-user_defined_protocol/server
+tutorial/tutorial-10-user_defined_protocol/client
+tutorial/tutorial-10-user_defined_protocol/server-uds
+tutorial/tutorial-10-user_defined_protocol/client-uds
+tutorial/tutorial-16-graceful_restart/bootstrap
+tutorial/tutorial-16-graceful_restart/server
