@@ -50,6 +50,10 @@ _include
 # cmake build directories
 build.cmake/
 _lib/
+*.cmake
+!CMakeLists.txt
+!CMakeLists_Headers.txt
+!workflow-config.cmake.in
 
 # tutorial executables
 tutorial/helloworld
