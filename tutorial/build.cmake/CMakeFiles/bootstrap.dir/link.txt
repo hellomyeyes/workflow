@@ -1,0 +1,1 @@
+/usr/bin/cc    -Wall -fPIC -pipe -std=gnu90 -O2 -g -DNDEBUG -Wl,--dependency-file=CMakeFiles/bootstrap.dir/link.d "CMakeFiles/bootstrap.dir/tutorial-16-graceful_restart/bootstrap.c.o" -o /home/runner/work/workflow/workflow/tutorial/tutorial-16-graceful_restart/bootstrap   -L/home/runner/work/workflow/workflow/_lib
