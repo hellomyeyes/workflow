@@ -71,6 +71,9 @@ void sigma_prime(const SigmaPrimeInput *in, SigmaPrimeOutput *out)
 	out->sum = 0;
 	out->count = 0;
 	
+	// Store primes for display (up to 200 for large inputs)
+	const long long MAX_STORE = 200;
+	
 	// Find all primes up to n and calculate their sum
 	for (long long i = 2; i <= in->n; i++)
 	{
@@ -78,25 +81,8 @@ void sigma_prime(const SigmaPrimeInput *in, SigmaPrimeOutput *out)
 		{
 			out->sum += i;
 			out->count++;
-			// Store first 50 and last 50 primes for display
-			if (out->count <= 50)
-			{
-				out->primes.push_back(i);
-			}
-			else if (out->count == 51)
-			{
-				out->primes.push_back(-1);  // Marker for "..."
-			}
-			// We'll add the last 50 primes in a second pass if needed
-		}
-	}
-	
-	// If we have more than 100 primes, store the last 50
-	if (out->count > 100)
-	{
-		for (long long i = in->n; i >= 2 && out->primes.size() < 101; i--)
-		{
-			if (is_prime(i))
+			// Store primes if count is reasonable
+			if (out->count <= MAX_STORE)
 				out->primes.push_back(i);
 		}
 	}
@@ -127,31 +113,21 @@ void callback(SigmaPrimeTask *task)
 		printf("Count: %lld prime numbers found\n", output->count);
 		printf("Sum (Sigma): %lld\n", output->sum);
 		
-		if (output->count > 0)
+		if (output->count > 0 && !output->primes.empty())
 		{
 			printf("\nPrime numbers: ");
-			size_t displayed = 0;
-			for (size_t i = 0; i < output->primes.size() && displayed < 20; i++)
-			{
-				if (output->primes[i] == -1)
-				{
-					printf("... ");
-					break;
-				}
-				printf("%lld ", output->primes[i]);
-				displayed++;
-			}
+			size_t limit = output->primes.size() < 20 ? output->primes.size() : 20;
 			
-			if (output->primes.size() > 20 && output->primes.back() != -1)
+			for (size_t i = 0; i < limit; i++)
+				printf("%lld ", output->primes[i]);
+			
+			if (output->primes.size() > limit)
 			{
 				printf("... ");
 				// Show last few primes
-				size_t start = output->primes.size() > 10 ? output->primes.size() - 5 : 0;
+				size_t start = output->primes.size() > 5 ? output->primes.size() - 5 : limit;
 				for (size_t i = start; i < output->primes.size(); i++)
-				{
-					if (output->primes[i] != -1)
-						printf("%lld ", output->primes[i]);
-				}
+					printf("%lld ", output->primes[i]);
 			}
 			printf("\n");
 		}
